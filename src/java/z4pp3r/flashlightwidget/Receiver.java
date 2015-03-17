@@ -6,25 +6,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
-import android.widget.RemoteViews;
 
 public class Receiver extends BroadcastReceiver {
-    private static boolean isLightOn = false;
+    static boolean isLightOn = false;
     private static Camera camera;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.main);
-
-        if(isLightOn) {
-            views.setTextViewText(R.id.button, "☼ off");
-        } else {
-            views.setTextViewText(R.id.button, "☼ on");
-        }
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        appWidgetManager.updateAppWidget(new ComponentName(context,     Main.class), views);
-
         if (isLightOn) {
             if (camera != null) {
                 camera.stopPreview();
@@ -45,5 +33,8 @@ public class Receiver extends BroadcastReceiver {
                 } catch (Exception e) {}
             }
         }
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.updateAppWidget(new ComponentName(context, Main.class), Main.createWidgetView(context));
     }
 }

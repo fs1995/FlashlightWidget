@@ -22,7 +22,7 @@
 
         <receiver android:name="Receiver">
             <intent-filter>
-                <action android:name="FLASHLIGHT"></action>
+                <action android:name="z4pp3r.flashlightwidget.FLASHLIGHT"></action>
             </intent-filter>
         </receiver>
 
